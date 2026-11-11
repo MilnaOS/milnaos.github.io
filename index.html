@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Soutuk: Offline AI Translator — Voice, Text &amp; Sign Language by PB-AIM</title>
+  <meta name="description" content="Offline AI translator getting you where you need to be—even the bathroom. Fast. Solo 4B on-device LLM + optional cloud backup across 470+ spoken languages and 161 sign languages." />
+  <meta property="og:title" content="Soutuk: Offline AI Translator" />
+  <meta property="og:description" content="Soutuk — getting you to where you need to be. (Even the bathroom.) Private Solo 4B on-device AI + optional Cloud translation across voice, text, and sign language." />
+  <meta property="og:image" content="https://milnaos.github.io/soutuk/assets/icon-512.png" />
+  <meta property="og:url" content="https://milnaos.github.io/soutuk/" />
+  <meta property="og:type" content="website" />
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <style>
+    :root {
+      --bg: #0A0C16;
+      --surface: #13172E;
+      --surface-hi: #1A2040;
+      --teal: #00F2FE;
+      --violet: #9D4EDD;
+      --gold: #E2B857;
+      --text: #F2F5FF;
+      --muted: #9BA6C7;
+      --border: rgba(255, 255, 255, 0.09);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      background-image:
+        radial-gradient(circle at 18% 12%, rgba(0, 242, 254, 0.11) 0%, transparent 42%),
+        radial-gradient(circle at 82% 18%, rgba(157, 78, 221, 0.14) 0%, transparent 45%),
+        radial-gradient(circle at 50% 88%, rgba(0, 242, 254, 0.06) 0%, transparent 50%);
+      color: var(--text);
+      line-height: 1.65;
+      min-height: 100vh;
+    }
+
+    a {
+      color: var(--teal);
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Navigation */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      background: rgba(10, 12, 22, 0.82);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-wrap {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      font-size: 1.15rem;
+      letter-spacing: 0.02em;
+      color: var(--text);
+      text-decoration: none !important;
+    }
+
+    .brand img {
+      width: 38px;
+      height: 38px;
+      border-radius: 9px;
+      border: 1px solid rgba(0, 242, 254, 0.35);
+      box-shadow: 0 0 16px rgba(0, 242, 254, 0.22);
+    }
+
+    .brand-sub {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--muted);
+      margin-left: 4px;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: var(--muted);
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: color 0.18s ease;
+      text-decoration: none !important;
+    }
+
+    nav a:hover {
+      color: var(--teal);
+    }
+
+    /* Container */
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 76px 0 64px;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 13px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      background: rgba(0, 242, 254, 0.1);
+      color: var(--teal);
+      border: 1px solid rgba(0, 242, 254, 0.3);
+    }
+
+    .pill.violet {
+      background: rgba(157, 78, 221, 0.15);
+      color: #D09CFF;
+      border-color: rgba(157, 78, 221, 0.4);
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 4.4vw, 3.35rem);
+      line-height: 1.12;
+      font-weight: 850;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+
+    .grad-text {
+      background: linear-gradient(95deg, var(--teal) 0%, #8CE8FF 45%, #C98BFF 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .slogan {
+      font-size: 1.22rem;
+      font-weight: 600;
+      color: var(--gold);
+      margin-bottom: 18px;
+    }
+
+    .hero-lead {
+      font-size: 1.06rem;
+      color: var(--muted);
+      margin-bottom: 30px;
+      max-width: 600px;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 13px 24px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 0.96rem;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      text-decoration: none !important;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--teal) 0%, #2CB9FF 100%);
+      color: #050914;
+      box-shadow: 0 8px 28px rgba(0, 242, 254, 0.28);
+    }
+
+    .btn-secondary {
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid rgba(157, 78, 221, 0.5);
+      box-shadow: 0 6px 22px rgba(157, 78, 221, 0.16);
+    }
+
+    .hero-icon-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-icon-frame {
+      position: relative;
+      width: min(330px, 82vw);
+      aspect-ratio: 1 / 1;
+      border-radius: 22%;
+      overflow: hidden;
+      border: 1.5px solid rgba(0, 242, 254, 0.35);
+      box-shadow:
+        0 24px 60px rgba(0, 0, 0, 0.65),
+        0 0 48px rgba(0, 242, 254, 0.2),
+        0 0 68px rgba(157, 78, 221, 0.2);
+    }
+
+    .hero-icon-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .icon-caption {
+      margin-top: 14px;
+      font-size: 0.82rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    /* Sections */
+    section {
+      padding: 58px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-title {
+      font-size: 1.85rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+    }
+
+    .section-sub {
+      color: var(--muted);
+      max-width: 720px;
+      margin-bottom: 34px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(235px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: linear-gradient(180deg, var(--surface) 0%, rgba(19, 23, 46, 0.72) 100%);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 26px;
+    }
+
+    .card.highlight-teal {
+      border-color: rgba(0, 242, 254, 0.35);
+    }
+
+    .card.highlight-violet {
+      border-color: rgba(157, 78, 221, 0.42);
+    }
+
+    .card h3 {
+      font-size: 1.18rem;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .stat-num {
+      font-size: 2rem;
+      font-weight: 850;
+      color: var(--teal);
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+
+    .stat-num.violet {
+      color: #CE93FF;
+    }
+
+    .stat-num.gold {
+      color: var(--gold);
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .card ul {
+      margin-top: 12px;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .card li + li {
+      margin-top: 6px;
+    }
+
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.86em;
+      background: rgba(255, 255, 255, 0.07);
+      padding: 2px 6px;
+      border-radius: 5px;
+      color: #CBEFFF;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 0 54px;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 860px) {
+      .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding-top: 44px;
+      }
+      .pill-row, .cta-row {
+        justify-content: center;
+      }
+      .hero-lead {
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="nav-wrap">
+      <a class="brand" href="./">
+        <img src="assets/favicon.png" alt="Soutuk S-Cryptex Icon" />
+        <span>Soutuk <span class="brand-sub">by PB-AIM</span></span>
+      </a>
+      <nav>
+        <a href="#modes">Solo &amp; Cloud</a>
+        <a href="#tiers">Language Tiers</a>
+        <a href="#cryptex">72-Byte Genome</a>
+        <a href="#sdk">SDK Licensing</a>
+        <a href="privacy.html">Privacy Policy</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- HERO -->
+    <div class="hero">
+      <div>
+        <div class="pill-row">
+          <span class="pill">Solo 4B On-Device AI</span>
+          <span class="pill violet">Voice · Text · 161 Sign Languages</span>
+        </div>
+        <h1>Soutuk: <span class="grad-text">Offline AI Translator</span></h1>
+        <p class="slogan">&ldquo;Soutuk — getting you to where you need to be. (Even the bathroom.)&rdquo;</p>
+        <p class="hero-lead">
+          Upfront, private AI translation built for real travel, Deaf &amp; signing communities, and zero-bars fieldwork. Run <strong>100% Solo on your phone</strong> with a commercial-cleared 4B parameter local LLM ensemble—or flip on <strong>Cloud Backup</strong> whenever you have signal.
+        </p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#modes">Google Play Release (`ai.milna.soutuk`)</a>
+          <a class="btn btn-secondary" href="#sdk">Kilonova On-Device SDK</a>
+        </div>
+      </div>
+
+      <div class="hero-icon-card">
+        <div class="hero-icon-frame">
+          <img src="assets/icon-512.png" alt="Soutuk S-Cryptex App Tile with ISO Language Codes and Sign Language Listen Glyph" />
+        </div>
+        <p class="icon-caption">The Soutuk <strong>S-Cryptex</strong> — ISO-639-3 language dials &amp; ASL <em>Listen</em> emblem</p>
+      </div>
+    </div>
+
+    <!-- SOLO VS CLOUD -->
+    <section id="modes">
+      <h2 class="section-title">Always Know How Your AI Is Running</h2>
+      <p class="section-sub">
+        Soutuk never hides whether your conversation is staying on your phone or using the cloud. A live status badge and dynamic language picker adapt immediately to your connection mode.
+      </p>
+      <div class="grid-2">
+        <div class="card highlight-teal">
+          <h3>Running SOLO (On-Device 4B Ensemble)</h3>
+          <p>Zero cell towers, zero Wi-Fi, zero data leaving your handset.</p>
+          <ul>
+            <li><strong>Primary Translator:</strong> <code>Qwen3-4B-Instruct</code> (Q4_K_M GGUF, Apache 2.0)</li>
+            <li><strong>Cross-Check Leg:</strong> <code>Llama-3.2-1B-Instruct</code> + <code>Qwen2.5-0.5B</code> Arbiter</li>
+            <li><strong>Hardware Accelerated:</strong> Qualcomm Hexagon / OpenCL &amp; ARM64 CPU runtimes</li>
+            <li><strong>Built-In AI Safety:</strong> 1-tap <em>Flag Bad Translation</em> button on every message bubble</li>
+          </ul>
+        </div>
+        <div class="card highlight-violet">
+          <h3>Running WITH CLOUD (Optional Backup)</h3>
+          <p>Expand fluency across regional dialects and deep technical formats when online.</p>
+          <ul>
+            <li><strong>Seamless Promotion:</strong> Promotes Tier-2 survival languages to deep cloud fluency</li>
+            <li><strong>Encrypted Transit:</strong> Ephemeral HTTPS requests—never sold, never used for ad targeting</li>
+            <li><strong>Unknown-Language Handshake:</strong> Automatic spoken-language identification in Conversation Mode</li>
+            <li><strong>Full User Control:</strong> Disconnect or run air-gapped at any moment</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- TIERED LANGUAGE PICKER -->
+    <section id="tiers">
+      <h2 class="section-title">Click the Exact Language Tiers You Want</h2>
+      <p class="section-sub">
+        Customize your picker with one tap—keep it laser-focused on 100% fluent languages, or check Tier-2 survival phrases when you're off the beaten path.
+      </p>
+      <div class="grid-4">
+        <div class="card">
+          <div class="stat-num">153</div>
+          <h3>100% Fluent Tier</h3>
+          <p>Full idiomatic voice and text conversation across major world languages, both Solo and with Cloud.</p>
+        </div>
+        <div class="card">
+          <div class="stat-num gold">317</div>
+          <h3>Tier 2: &ldquo;Gets You to the Bathroom&rdquo;</h3>
+          <p>Regional &amp; travel survival languages backed by attested DOT lexicons—directions, water, lodging, medical help, and yes, finding the restroom.</p>
+        </div>
+        <div class="card">
+          <div class="stat-num violet">161</div>
+          <h3>Sign Languages (incl. ASL)</h3>
+          <p>Searchable by everyday names like <code>ASL</code>, <code>BSL</code>, <code>Auslan</code>, and <code>Libras</code>, with grammatical glossing &amp; manual alphabet rendering.</p>
+        </div>
+        <div class="card">
+          <div class="stat-num">98 / 683</div>
+          <h3>Code &amp; Technical Formats</h3>
+          <p>98 core programming &amp; data languages offline in Solo mode, expanding to 683 technical dialects with Cloud enabled.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 72-BYTE GENOME -->
+    <section id="cryptex">
+      <h2 class="section-title">Why an S-Shaped Cryptex?</h2>
+      <p class="section-sub">
+        Beneath the LLM ensemble sits Soutuk's <strong>DOT-QR Language Genome Vault</strong>—8,915 Glottolog &amp; WALS languages distilled into compact <strong>72-byte (576-bit)</strong> binary descriptors indexed by 3-letter ISO-639-3 codes (<code>ENG</code>, <code>SPA</code>, <code>ARA</code>, <code>JPN</code>, <code>ASE</code>&hellip;).
+      </p>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Pairwise XOR Typological Alignment</h3>
+          <p>
+            Just like aligning the rotating rings of a physical cryptex, Soutuk computes an instant <code>&lt;0.03 ms</code> pairwise <code>XOR</code> across two languages' 72-byte genomes—injecting exact word-order, morphological, and phonological transfer cues into the on-device prompt before the first token is generated.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Acoustic-Twin TTS &amp; Discovery Vault</h3>
+          <p>
+            When Android lacks a native voice pack for a regional language, Soutuk's 72-byte phonological distance matcher selects the closest acoustic twin for spoken playback—while keeping 7,600+ endangered &amp; unwritten language genomes ready in Field Discovery Mode.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FREE APP VS PAID SDK -->
+    <section id="sdk">
+      <h2 class="section-title">Free App for Everyone. Dual-License SDK for Builders.</h2>
+      <p class="section-sub">
+        The standalone <strong>Soutuk</strong> mobile app is free. Organizations looking to embed our multi-model on-device runtime (<code>kilonova_ondevice</code>) or DOT-QR genome engine into their own hardware, broadcast captioning, or enterprise software can license the SDK directly from PB-AIM.
+      </p>
+      <div class="grid-2">
+        <div class="card highlight-teal">
+          <h3>$0 Non-Profit, School &amp; Humanitarian Grant</h3>
+          <p>
+            Registered 501(c)(3) / international non-profits, public schools, Deaf accessibility programs, medical relief teams, and endangered-language researchers qualify for a <strong>$0 Grant License</strong> to build with the Kilonova On-Device SDK.
+          </p>
+        </div>
+        <div class="card highlight-violet">
+          <h3>Commercial &amp; Enterprise SDK License</h3>
+          <p>
+            Private-sector companies, OEM hardware makers, broadcast/AVSR captioning platforms, and commercial apps require a paid Kilonova SDK license. Reach out via <a href="https://pb-aim.com">pb-aim.com</a> or <a href="mailto:contact@pb-aim.com">contact@pb-aim.com</a> for commercial licensing.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div>
+        <strong>&copy; 2026 PB-AIM</strong> &middot; Soutuk: Offline AI Translator (<code>ai.milna.soutuk</code>)<br />
+        <span>Built with Llama &middot; Powered by Qwen3-4B, Llama 3.2 &amp; Kilonova On-Device Runtime.</span>
+      </div>
+      <div class="footer-links">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="https://pb-aim.com">PB-AIM Home</a>
+        <a href="mailto:contact@pb-aim.com">Contact &amp; Support</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

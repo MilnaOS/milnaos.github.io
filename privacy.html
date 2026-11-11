@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — Soutuk: Offline AI Translator (ai.milna.soutuk)</title>
+  <meta name="description" content="Official Privacy Policy and Google Play Data Safety disclosure for Soutuk: Offline AI Translator (ai.milna.soutuk) by PB-AIM." />
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <style>
+    :root {
+      --bg: #0A0C16;
+      --surface: #13172E;
+      --teal: #00F2FE;
+      --violet: #9D4EDD;
+      --text: #F2F5FF;
+      --muted: #A6B1D0;
+      --border: rgba(255, 255, 255, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      padding-bottom: 64px;
+    }
+
+    a {
+      color: var(--teal);
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+
+    header {
+      border-bottom: 1px solid var(--border);
+      background: rgba(19, 23, 46, 0.65);
+      padding: 16px 24px;
+    }
+
+    .nav-wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      color: var(--text);
+      text-decoration: none !important;
+    }
+
+    .brand img {
+      width: 32px;
+      height: 32px;
+      border-radius: 7px;
+    }
+
+    main {
+      max-width: 860px;
+      margin: 44px auto 0;
+      padding: 0 24px;
+    }
+
+    .policy-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 8px;
+    }
+
+    .meta {
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-bottom: 28px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    h2 {
+      font-size: 1.24rem;
+      color: var(--teal);
+      margin-top: 28px;
+      margin-bottom: 10px;
+    }
+
+    p, li {
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    p + p {
+      margin-top: 10px;
+    }
+
+    ul {
+      padding-left: 22px;
+      margin-top: 8px;
+    }
+
+    li + li {
+      margin-top: 6px;
+    }
+
+    strong {
+      color: var(--text);
+    }
+
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.88em;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: #D2F2FF;
+    }
+
+    @media (max-width: 600px) {
+      .policy-card {
+        padding: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="nav-wrap">
+      <a class="brand" href="./">
+        <img src="assets/favicon.png" alt="Soutuk Icon" />
+        <span>Soutuk: Offline AI Translator</span>
+      </a>
+      <a href="./">&larr; Back to Home</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="policy-card">
+      <h1>Privacy Policy</h1>
+      <div class="meta">
+        <strong>Effective Date:</strong> November 11, 2026<br />
+        <strong>Developer:</strong> PB-AIM (<a href="https://pb-aim.com">pb-aim.com</a>)<br />
+        <strong>Application Name:</strong> Soutuk: Offline AI Translator<br />
+        <strong>Android Package ID:</strong> <code>ai.milna.soutuk</code>
+      </div>
+
+      <p>
+        Soutuk is engineered <strong>offline-first</strong> so your spoken, typed, and signed conversations remain under your control. We do not require user accounts, we embed zero advertising SDKs, and we never sell personal data.
+      </p>
+
+      <h2>1. Solo Offline Mode (Zero Data Collection or Transmission)</h2>
+      <ul>
+        <li>When Soutuk displays <strong>Running SOLO</strong>, speech recognition (via your device's operating system recognizer), AI language translation (<code>Qwen3-4B</code>, <code>Llama 3.2 1B</code>, and <code>Qwen 2.5 0.5B</code>), 72-byte DOT-QR genome lookups, Sign Language gloss rendering, and text-to-speech synthesis execute <strong>100% locally on your device</strong>.</li>
+        <li>Zero conversation text, audio recordings, or translation history leaves your phone in Solo Offline mode.</li>
+      </ul>
+
+      <h2>2. Microphone Permission (<code>android.permission.RECORD_AUDIO</code>) &amp; Cloud Backup Mode</h2>
+      <ul>
+        <li>Soutuk accesses your microphone <strong>only</strong> while you actively initiate voice input (<code>Mic 1 &rarr; 2</code>, <code>Mic 2 &rarr; 1</code>, Conversation Mode, or Field Discovery Mode). Soutuk never records background audio while idle.</li>
+        <li>When operating <strong>WITH CLOUD</strong> (optional Cloud Backup mode or unknown-language identification handshake), short utterance audio or text is sent over encrypted HTTPS (<code>TLS 1.3</code>) solely to generate and return your requested transcription and translation in real time.</li>
+        <li>Cloud requests are processed ephemerally and are never sold, shared with data brokers, or used for behavioral advertising.</li>
+      </ul>
+
+      <h2>3. Generative AI Transparency &amp; Voluntary &ldquo;Flag Bad Translation&rdquo; Reports</h2>
+      <ul>
+        <li>Soutuk uses generative AI language models, which can occasionally produce inaccurate translations. Do not rely solely on automated AI output for life-critical medical, legal, or emergency decisions without human verification.</li>
+        <li>Every translation bubble includes a 1-tap <strong>Flag</strong> button. Only if you voluntarily submit a flag report will that single flagged source snippet, generated translation, language pair, diagnostic confidence metadata, and optional user note be transmitted over HTTPS so our linguistic team can investigate and improve translations. Surrounding conversation messages never leave your device.</li>
+      </ul>
+
+      <h2>4. Cooperative Local Wi-Fi Conference Mode (Explicit Opt-In Only)</h2>
+      <ul>
+        <li>Local Wi-Fi Conference / peer sharing stays completely disabled unless you explicitly join or host a conference session and accept the in-app privacy prompt. Opting out keeps all local network sockets closed.</li>
+      </ul>
+
+      <h2>5. Local Storage, Data Retention &amp; Deletion Controls</h2>
+      <ul>
+        <li><strong>No Mandatory Accounts:</strong> Soutuk does not create personal user accounts or collect names, phone numbers, contacts, or precise GPS locations.</li>
+        <li><strong>Instant Local Deletion:</strong> Downloaded GGUF AI model weights, picker preferences, conversation history, and locally queued flag reports are stored exclusively in Soutuk's private app storage on your handset. You can clear conversation history, delete queued reports, or uninstall Soutuk at any time to permanently erase all local data.</li>
+        <li><strong>Flag Report Removal Requests:</strong> If you submitted a voluntary bad-translation flag report and wish to have it deleted, email <a href="mailto:contact@pb-aim.com">contact@pb-aim.com</a> with the approximate timestamp and language pair and we will purge it promptly.</li>
+      </ul>
+
+      <h2>6. Open-Weight AI Attribution &amp; Contact</h2>
+      <ul>
+        <li>Soutuk's Solo offline ensemble includes models licensed under Apache 2.0 (<code>Qwen3-4B</code>, <code>Qwen2.5-0.5B</code>) and the Llama 3.2 Community License (<strong>Built with Llama</strong>).</li>
+        <li>Questions regarding privacy or Google Play Data Safety can be directed to PB-AIM at <a href="mailto:contact@pb-aim.com">contact@pb-aim.com</a>.</li>
+      </ul>
+    </div>
+  </main>
+
+</body>
+</html>
